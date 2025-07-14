@@ -1,0 +1,154 @@
+version: "3.8"
+
+services:
+  bestellservice:
+    image: bestellservice:latest
+    container_name: bestellservice
+    ports:
+      - "8081:8080"
+    networks:
+      my-test-network:
+        aliases:
+          - bestellservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bestelldb:5432/bestelldb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+    depends_on:
+      - bestelldb
+
+  bestelldb:
+    image: postgres:15
+    container_name: bestelldb
+    networks:
+      my-test-network:
+        aliases:
+          - bestelldb
+    environment:
+      - POSTGRES_DB=bestelldb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - bestelldb-data:/var/lib/postgresql/data
+
+  paymentservice:
+    image: paymentservice:latest
+    container_name: paymentservice
+    ports:
+      - "8082:8080"
+    networks:
+      my-test-network:
+        aliases:
+          - paymentservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://paymentdb:5432/paymentdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+    depends_on:
+      - paymentdb
+
+  paymentdb:
+    image: postgres:15
+    container_name: paymentdb
+    networks:
+      my-test-network:
+        aliases:
+          - paymentdb
+    environment:
+      - POSTGRES_DB=paymentdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - paymentdb-data:/var/lib/postgresql/data
+
+  produktservice:
+    image: produktservice:latest
+    container_name: produktservice
+    ports:
+      - "8083:8080"
+    networks:
+      my-test-network:
+        aliases:
+          - produktservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://produktdb:5432/produktdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+    depends_on:
+      - produktdb
+
+  produktdb:
+    image: postgres:15
+    container_name: produktdb
+    networks:
+      my-test-network:
+        aliases:
+          - produktdb
+    environment:
+      - POSTGRES_DB=produktdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - produktdb-data:/var/lib/postgresql/data  
+        
+  versandservice:
+    image: versandservice:latest
+    container_name: versandservice
+    ports:
+      - "8084:8080"
+    networks:
+      my-test-network:
+        aliases:
+          - versandservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://versanddb:5432/versanddb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+    depends_on:
+      - versanddb
+
+  versanddb:
+    image: postgres:15
+    container_name: versanddb
+    networks:
+      my-test-network:
+        aliases:
+          - versanddb
+    environment:
+      - POSTGRES_DB=versanddb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - versanddb-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - "8080:80"
+    networks:
+      my-test-network:
+        aliases:
+          - pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=ch.fries@gmx.net
+      - PGADMIN_DEFAULT_PASSWORD=1pw
+    depends_on:
+      - bestelldb
+      - paymentdb
+      - 
+      - versanddb
+
+networks:
+  my-test-network:
+    driver: bridge
+
+volumes:
+  bestelldb-data:
+  paymentdb-data:
+  produktdb-data:
+  versanddb-data:

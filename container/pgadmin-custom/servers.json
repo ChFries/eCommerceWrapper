@@ -1,0 +1,84 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "bestelldb",
+            "Group": "Servers",
+            "Host": "bestelldb",
+            "Port": 5432,
+            "MaintenanceDB": "postgres",
+            "Username": "postgres",
+            "UseSSHTunnel": 0,
+            "TunnelPort": "22",
+            "TunnelAuthentication": 0,
+            "TunnelKeepAlive": 0,
+            "KerberosAuthentication": false,
+            "ConnectionParameters": {
+                "sslmode": "prefer",
+                "connect_timeout": 10,
+                "sslcert": "<STORAGE_DIR>/.postgresql/postgresql.crt",
+                "sslkey": "<STORAGE_DIR>/.postgresql/postgresql.key"
+            },
+            "Tags": []
+        },
+        "2": {
+            "Name": "produktdb",
+            "Group": "Servers",
+            "Host": "produktdb",
+            "Port": 5432,
+            "MaintenanceDB": "postgres",
+            "Username": "postgres",
+            "UseSSHTunnel": 0,
+            "TunnelPort": "22",
+            "TunnelAuthentication": 0,
+            "TunnelKeepAlive": 0,
+            "KerberosAuthentication": false,
+            "ConnectionParameters": {
+                "sslmode": "prefer",
+                "connect_timeout": 10,
+                "sslcert": "<STORAGE_DIR>/.postgresql/postgresql.crt",
+                "sslkey": "<STORAGE_DIR>/.postgresql/postgresql.key"
+            },
+            "Tags": []
+        },
+        "3": {
+            "Name": "versanddb",
+            "Group": "Servers",
+            "Host": "versanddb",
+            "Port": 5432,
+            "MaintenanceDB": "postgres",
+            "Username": "postgres",
+            "UseSSHTunnel": 0,
+            "TunnelPort": "22",
+            "TunnelAuthentication": 0,
+            "TunnelKeepAlive": 0,
+            "KerberosAuthentication": false,
+            "ConnectionParameters": {
+                "sslmode": "prefer",
+                "connect_timeout": 10,
+                "sslcert": "<STORAGE_DIR>/.postgresql/postgresql.crt",
+                "sslkey": "<STORAGE_DIR>/.postgresql/postgresql.key"
+            },
+            "Tags": []
+        },
+        "4": {
+            "Name": "paymentdb",
+            "Group": "Servers",
+            "Host": "paymentdb",
+            "Port": 5432,
+            "MaintenanceDB": "postgres",
+            "Username": "postgres",
+            "UseSSHTunnel": 0,
+            "TunnelPort": "22",
+            "TunnelAuthentication": 0,
+            "TunnelKeepAlive": 0,
+            "KerberosAuthentication": false,
+            "ConnectionParameters": {
+                "sslmode": "prefer",
+                "connect_timeout": 10,
+                "sslcert": "<STORAGE_DIR>/.postgresql/postgresql.crt",
+                "sslkey": "<STORAGE_DIR>/.postgresql/postgresql.key"
+            },
+            "Tags": []
+        }
+    }
+}
