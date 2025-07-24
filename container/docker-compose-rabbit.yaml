@@ -23,6 +23,41 @@ services:
       - bestelldb
       - rabbitmanagement
 
+  bestellservice1:
+    image: bestellservice:latest
+    container_name: bestellservice1
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - bestellservice1
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bestelldb:5432/bestelldb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_PROFILES_ACTIVE=RABBITMQ
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - bestelldb
+      - rabbitmanagement
+  bestellservice2:
+    image: bestellservice:latest
+    container_name: bestellservice2
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - bestellservice2
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bestelldb:5432/bestelldb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_PROFILES_ACTIVE=RABBITMQ
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - bestelldb
+      - rabbitmanagement
+
   bestelldb:
     image: postgres:15
     container_name: bestelldb
@@ -46,6 +81,22 @@ services:
       my-test-network-rabbit:
         aliases:
           - paymentservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://paymentdb:5432/paymentdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - paymentdb
+      - rabbitmanagement
+  paymentservice1:
+    image: paymentservice:latest
+    container_name: paymentservice1
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - paymentservice1
     environment:
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://paymentdb:5432/paymentdb
@@ -88,6 +139,22 @@ services:
     depends_on:
       - produktdb
       - rabbitmanagement
+  produktservice1:
+    image: produktservice:latest
+    container_name: produktservice1
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - produktservice1
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://produktdb:5432/produktdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - produktdb
+      - rabbitmanagement
 
   produktdb:
     image: postgres:15
@@ -112,6 +179,22 @@ services:
       my-test-network-rabbit:
         aliases:
           - versandservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://versanddb:5432/versanddb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - versanddb
+      - rabbitmanagement
+  versandservice1:
+    image: versandservice:latest
+    container_name: versandservice1
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - versandservice1
     environment:
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://versanddb:5432/versanddb
