@@ -1,0 +1,177 @@
+version: "3.8"
+
+name: E-Commerce-Rabbit
+
+services:
+  bestellservice:
+    image: bestellservice:latest
+    container_name: bestellservice
+    ports:
+      - "8085:8080"
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - bestellservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bestelldb:5432/bestelldb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_PROFILES_ACTIVE=RABBITMQ
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - bestelldb
+      - rabbitmanagement
+
+  bestelldb:
+    image: postgres:15
+    container_name: bestelldb
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - bestelldb
+    environment:
+      - POSTGRES_DB=bestelldb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - bestelldb-data:/var/lib/postgresql/data
+
+  paymentservice:
+    image: paymentservice:latest
+    container_name: paymentservice
+    ports:
+      - "8082:8080"
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - paymentservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://paymentdb:5432/paymentdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - paymentdb
+      - rabbitmanagement
+
+  paymentdb:
+    image: postgres:15
+    container_name: paymentdb
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - paymentdb
+    environment:
+      - POSTGRES_DB=paymentdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - paymentdb-data:/var/lib/postgresql/data
+
+  produktservice:
+    image: produktservice:latest
+    container_name: produktservice
+    ports:
+      - "8083:8080"
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - produktservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://produktdb:5432/produktdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - produktdb
+      - rabbitmanagement
+
+  produktdb:
+    image: postgres:15
+    container_name: produktdb
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - produktdb
+    environment:
+      - POSTGRES_DB=produktdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - produktdb-data:/var/lib/postgresql/data  
+        
+  versandservice:
+    image: versandservice:latest
+    container_name: versandservice
+    ports:
+      - "8084:8080"
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - versandservice
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://versanddb:5432/versanddb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      - versanddb
+      - rabbitmanagement
+
+  versanddb:
+    image: postgres:15
+    container_name: versanddb
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - versanddb
+    environment:
+      - POSTGRES_DB=versanddb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1pw
+    volumes:
+      - versanddb-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: pgadmin-custom:latest
+    container_name: pgadmin
+    ports:
+      - "8080:80"
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=1pw
+    depends_on:
+      - bestelldb
+      - paymentdb
+      - produktdb
+      - versanddb
+
+  rabbitmanagement:
+    image: rabbitmq:4.1.2-management
+    container_name: rabbitmq-management
+    ports:
+      - "8081:15672"
+      - "5673:5672"
+    networks:
+      my-test-network-rabbit:
+        aliases:
+          - rabbitmq
+
+
+networks:
+  my-test-network-rabbit:
+    driver: bridge
+
+volumes:
+  bestelldb-data:
+  paymentdb-data:
+  produktdb-data:
+  versanddb-data:
