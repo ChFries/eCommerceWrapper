@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="RabbitTestPlan">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="5RPS" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>300.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="10RPS" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>600.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="25PS" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>1500.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="50RPS" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>3000.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="75RPS" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>4500.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="100RPS" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>6000.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="166RPS" enabled="false">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>9500.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+          <PreciseThroughputTimer guiclass="TestBeanGUI" testclass="PreciseThroughputTimer" testname="Precise Throughput Timer" enabled="false">
+            <doubleProp>
+              <name>allowedThroughputSurplus</name>
+              <value>1.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="exactLimit">10000</intProp>
+            <doubleProp>
+              <name>throughput</name>
+              <value>4500.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="throughputPeriod">30</intProp>
+            <longProp name="duration">30</longProp>
+            <intProp name="batchSize">1</intProp>
+            <intProp name="batchThreadDelay">0</intProp>
+            <longProp name="randomSeed">0</longProp>
+          </PreciseThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="200RPS">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <longProp name="ThreadGroup.duration">30</longProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <com.zeroclue.jmeter.protocol.amqp.AMQPPublisher guiclass="com.zeroclue.jmeter.protocol.amqp.gui.AMQPPublisherGui" testclass="com.zeroclue.jmeter.protocol.amqp.AMQPPublisher" testname="bestellung publisher">
+          <stringProp name="AMQPSampler.Exchange">bestellung.exchange</stringProp>
+          <stringProp name="AMQPSampler.ExchangeType">topic</stringProp>
+          <boolProp name="AMQPSampler.ExchangeDurable">true</boolProp>
+          <boolProp name="AMQPSampler.ExchangeRedeclare">false</boolProp>
+          <boolProp name="AMQPSampler.ExchangeAutoDelete">false</boolProp>
+          <stringProp name="AMQPSampler.Queue"></stringProp>
+          <stringProp name="AMQPSampler.RoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPSampler.MessageTTL"></stringProp>
+          <stringProp name="AMQPSampler.MessageExpires"></stringProp>
+          <stringProp name="AMQPSampler.MaxPriority"></stringProp>
+          <stringProp name="AMQPSampler.QueueDurable">false</stringProp>
+          <boolProp name="AMQPSampler.Redeclare">false</boolProp>
+          <stringProp name="AMQPSampler.QueueAutoDelete">false</stringProp>
+          <stringProp name="AMQPSampler.QueueExclusive">false</stringProp>
+          <stringProp name="AMQPSampler.VirtualHost">/</stringProp>
+          <stringProp name="AMQPSampler.Host">localhost</stringProp>
+          <stringProp name="AMQPSampler.Port">5673</stringProp>
+          <stringProp name="AMQPSampler.Username">guest</stringProp>
+          <stringProp name="AMQPSampler.Password">guest</stringProp>
+          <stringProp name="AMQPSampler.Timeout">1000</stringProp>
+          <stringProp name="AMQPSampler.Heartbeat">60</stringProp>
+          <stringProp name="AMQPSampler.SSL">false</stringProp>
+          <stringProp name="AMQPSampler.Iterations">1</stringProp>
+          <boolProp name="AMQPPublisher.Persistent">true</boolProp>
+          <boolProp name="AMQPPublisher.UseTx">false</boolProp>
+          <stringProp name="AMQPPublisher.MessageRoutingKey">bestellung.bestellung.eingehend</stringProp>
+          <stringProp name="AMQPPublisher.Message">{
+  &quot;kundeId&quot;: &quot;98765432-abcd-1234-ef00-112233445566&quot;,
+  &quot;bestellPositionen&quot;: [
+    {
+      &quot;produktId&quot;: &quot;14712049-d0f1-cb09-1042-af40d0e5b878&quot;,
+      &quot;id&quot;: &quot;d7427dd3-644f-4f82-9fa3-136b4c213320&quot;,
+      &quot;menge&quot;: 5,
+      &quot;einzelpreis&quot;: 77
+    },
+    {
+      &quot;produktId&quot;: &quot;c906e3ea-c3d9-532b-a00b-079929e9fad1&quot;,
+      &quot;menge&quot;: 2,
+      &quot;einzelpreis&quot;: 74.99
+    }
+  ],
+  &quot;status&quot;: &quot;offen&quot;,
+  &quot;erstelltAm&quot;: &quot;2025-06-20T12:34:56Z&quot;,
+  &quot;zahlungsreferenz&quot;: &quot;&quot;,
+  &quot;versandreferenz&quot;: &quot;&quot;
+}</stringProp>
+          <stringProp name="AMQPPublisher.MessageType"></stringProp>
+          <stringProp name="AMQPPublisher.ReplyToQueue"></stringProp>
+          <stringProp name="AMQPPublisher.CorrelationId"></stringProp>
+          <stringProp name="AMQPPublisher.MessagePriority"></stringProp>
+          <stringProp name="AMQPPublisher.ContentType">application/json</stringProp>
+          <stringProp name="AMQPPublisher.ContentEncoding">utf-8</stringProp>
+          <stringProp name="AMQPPublisher.MessageId"></stringProp>
+          <stringProp name="AMQPPublisher.AppId"></stringProp>
+          <boolProp name="AMQPPublisher.Timestamp">true</boolProp>
+          <elementProp name="AMQPPublisher.Headers" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+        </com.zeroclue.jmeter.protocol.amqp.AMQPPublisher>
+        <hashTree>
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+            <doubleProp>
+              <name>throughput</name>
+              <value>12000.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="calcMode">1</intProp>
+          </ConstantThroughputTimer>
+          <hashTree/>
+          <PreciseThroughputTimer guiclass="TestBeanGUI" testclass="PreciseThroughputTimer" testname="Precise Throughput Timer" enabled="false">
+            <doubleProp>
+              <name>allowedThroughputSurplus</name>
+              <value>1.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="exactLimit">10000</intProp>
+            <doubleProp>
+              <name>throughput</name>
+              <value>4500.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="throughputPeriod">30</intProp>
+            <longProp name="duration">30</longProp>
+            <intProp name="batchSize">1</intProp>
+            <intProp name="batchThreadDelay">0</intProp>
+            <longProp name="randomSeed">0</longProp>
+          </PreciseThroughputTimer>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
