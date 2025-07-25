@@ -6,8 +6,9 @@ name: E-Commerce-Rest
 services:
   bestellservice:
     image: bestellservice:latest
+    container_name: bestellservice-rest
     ports:
-      - "8085:8080"
+      - "8072:8080"
     networks:
       my-test-network-rest:
         aliases:
@@ -25,6 +26,7 @@ services:
 
   bestelldb:
     image: postgres:15
+    container_name: bestelldb-rest
     networks:
       my-test-network-rest:
         aliases:
@@ -38,8 +40,9 @@ services:
 
   paymentservice:
     image: paymentservice:latest
+    container_name: paymentservice-rest
     ports:
-      - "8082:8080"
+      - "8073:8080"
     networks:
       my-test-network-rest:
         aliases:
@@ -56,6 +59,7 @@ services:
 
   paymentdb:
     image: postgres:15
+    container_name: paymentdb-rest
     networks:
       my-test-network-rest:
         aliases:
@@ -69,8 +73,9 @@ services:
 
   produktservice:
     image: produktservice:latest
+    container_name: produktservice-rest
     ports:
-      - "8083:8080"
+      - "8074:8080"
     networks:
       my-test-network-rest:
         aliases:
@@ -87,6 +92,7 @@ services:
 
   produktdb:
     image: postgres:15
+    container_name: produktdb-rest
     networks:
       my-test-network-rest:
         aliases:
@@ -100,8 +106,9 @@ services:
         
   versandservice:
     image: versandservice:latest
+    container_name: versandservice-rest
     ports:
-      - "8084:8080"
+      - "8075:8080"
     networks:
       my-test-network-rest:
         aliases:
@@ -118,6 +125,7 @@ services:
 
   versanddb:
     image: postgres:15
+    container_name: versanddb-rest
     networks:
       my-test-network-rest:
         aliases:
@@ -131,8 +139,9 @@ services:
 
   pgadmin:
     image: pgadmin-custom:latest
+    container_name: pgadmin-rest
     ports:
-      - "8080:80"
+      - "8070:80"
     networks:
       my-test-network-rest:
         aliases:
@@ -148,9 +157,10 @@ services:
 
   rabbitmanagement:
     image: rabbitmq:4.1.2-management
+    container_name: rabbitmq-management-rest
     ports:
-      - "8081:15672"
-      - "5673:5672"
+      - "8071:15672"
+      - "5674:5672"
     networks:
       my-test-network-rest:
         aliases:
