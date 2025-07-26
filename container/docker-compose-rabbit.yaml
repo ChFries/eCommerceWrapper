@@ -51,6 +51,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://paymentdb:5432/paymentdb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_PROFILES_ACTIVE=RABBITMQ
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - paymentdb
@@ -84,6 +85,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://produktdb:5432/produktdb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_PROFILES_ACTIVE=RABBITMQ
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - produktdb
@@ -117,6 +119,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://versanddb:5432/versanddb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=1pw
+      - SPRING_PROFILES_ACTIVE=RABBITMQ
       - SPRING_RABBITMQ_HOST=rabbitmq
     depends_on:
       - versanddb
