@@ -6,8 +6,6 @@ services:
   bestellservice:
     image: bestellservice:latest
     container_name: bestellservice-rabbit
-    ports:
-      - "8172:8080"
     networks:
       my-test-network-rabbit:
         aliases:
@@ -40,8 +38,6 @@ services:
   paymentservice:
     image: paymentservice:latest
     container_name: paymentservice-rabbit
-    ports:
-      - "8173:8080"
     networks:
       my-test-network-rabbit:
         aliases:
@@ -74,8 +70,6 @@ services:
   produktservice:
     image: produktservice:latest
     container_name: produktservice-rabbit
-    ports:
-      - "8174:8080"
     networks:
       my-test-network-rabbit:
         aliases:
@@ -108,8 +102,6 @@ services:
   versandservice:
     image: versandservice:latest
     container_name: versandservice-rabbit
-    ports:
-      - "8175:8080"
     networks:
       my-test-network-rabbit:
         aliases:

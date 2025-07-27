@@ -48,10 +48,6 @@ docker compose -f docker-compose-rabbit.yml up -d
 
 | Komponente       | Port     |
 |------------------|----------|
-| Bestellservice   | 8172     |
-| Produktservice   | 8174     |
-| Paymentservice   | 8173     |
-| Versandservice   | 8175     |
 | RabbitMQ Mgmt UI | 8171     |
 | pgAdmin          | 8170     |
 
