@@ -1,0 +1,856 @@
+{
+	"info": {
+		"_postman_id": "0c158ea1-557c-453a-aedc-07cf28fa9b90",
+		"name": "Bestellservice-Microservice API",
+		"description": "API des BestellServices\n\nContact Support:\n Email: ch.fries@gmx.net",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45274174",
+		"_collection_link": "https://chirs-7607475.postman.co/workspace/Chirs's-Workspace~a61850d2-2f66-4cca-8538-c016220951d4/collection/45274174-0c158ea1-557c-453a-aedc-07cf28fa9b90?action=share&source=collection_link&creator=45274174"
+	},
+	"item": [
+		{
+			"name": "bestellung",
+			"item": [
+				{
+					"name": "{{bestellId}}",
+					"item": [
+						{
+							"name": "status",
+							"item": [
+								{
+									"name": "Bestellstatus updaten",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"status\": \"bezahlt\",\n  \"id\": \"{{bestellId}}\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId/status",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId",
+												"status"
+											],
+											"variable": [
+												{
+													"key": "bestellId",
+													"value": "{{bestellId}}",
+													"description": "(Required) ID der bestellung"
+												}
+											]
+										},
+										"description": "Ändert den Status einer Bestellung"
+									},
+									"response": [
+										{
+											"name": "successful operation",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"status\": \"offen\",\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/bestellung/:bestellId/status",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"bestellung",
+														":bestellId",
+														"status"
+													],
+													"variable": [
+														{
+															"key": "bestellId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14719049-d0f1-cb09-1042-af40d0e5b878\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    },\n    {\n      \"produktId\": \"c906eaea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"PAY-2025-123456\",\n  \"versandreferenz\": \"SHIP-XYZ-789456\"\n}"
+										},
+										{
+											"name": "Invalid ID supplied",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"status\": \"offen\",\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/bestellung/:bestellId/status",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"bestellung",
+														":bestellId",
+														"status"
+													],
+													"variable": [
+														{
+															"key": "bestellId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Bestellung not found",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"status\": \"offen\",\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/bestellung/:bestellId/status",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"bestellung",
+														":bestellId",
+														"status"
+													],
+													"variable": [
+														{
+															"key": "bestellId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Bestellung abrufen",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/bestellung/:bestellId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung",
+										":bestellId"
+									],
+									"variable": [
+										{
+											"key": "bestellId",
+											"value": "{{bestellId}}",
+											"description": "(Required) ID der bestellung"
+										}
+									]
+								},
+								"description": "Ruft eine Bestellung anhand der UUID ab"
+							},
+							"response": [
+								{
+									"name": "successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId"
+											],
+											"variable": [
+												{
+													"key": "bestellId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14719049-d0f1-cb09-1042-af40d0e5b878\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    },\n    {\n      \"produktId\": \"c906eaea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"PAY-2025-123456\",\n  \"versandreferenz\": \"SHIP-XYZ-789456\"\n}"
+								},
+								{
+									"name": "Invalid ID supplied",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId"
+											],
+											"variable": [
+												{
+													"key": "bestellId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Bestellung not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId"
+											],
+											"variable": [
+												{
+													"key": "bestellId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Bestellung löschen",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/bestellung/:bestellId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung",
+										":bestellId"
+									],
+									"variable": [
+										{
+											"key": "bestellId",
+											"value": "{{bestellId}}",
+											"description": "(Required) ID der zu löschenden Bestellung"
+										}
+									]
+								},
+								"description": "Löscht die Bestellung anhand der UUID"
+							},
+							"response": [
+								{
+									"name": "order deleted",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId"
+											],
+											"variable": [
+												{
+													"key": "bestellId"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Invalid ID supplied",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId"
+											],
+											"variable": [
+												{
+													"key": "bestellId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Order not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId"
+											],
+											"variable": [
+												{
+													"key": "bestellId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/bestellung/:bestellId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"bestellung",
+												":bestellId"
+											],
+											"variable": [
+												{
+													"key": "bestellId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"code\": \"Duis dolore irure ut\",\n  \"message\": \"in nisi\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Alle Bestellungen abrufen",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/bestellung",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bestellung"
+							]
+						},
+						"description": "Ruft alle Bestellungen ab"
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/bestellung",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n    \"bestellPositionen\": [\n      {\n        \"produktId\": \"16ce5a3a-8476-9bc4-7a01-030208ee657a\",\n        \"menge\": 2,\n        \"einzelpreis\": 74.99\n      },\n      {\n        \"produktId\": \"701d64f3-7d6a-4c0c-1732-e6b2786aa95f\",\n        \"menge\": 2,\n        \"einzelpreis\": 74.99\n      }\n    ],\n    \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n    \"status\": \"offen\",\n    \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n    \"zahlungsreferenz\": \"PAY-2025-123456\",\n    \"versandreferenz\": \"SHIP-XYZ-789456\"\n  },\n  {\n    \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n    \"bestellPositionen\": [\n      {\n        \"produktId\": \"urn:uuid:fd742616-4d01-7489-3aef-2013f9f1748a\",\n        \"menge\": 2,\n        \"einzelpreis\": 74.99\n      },\n      {\n        \"produktId\": \"becbed03-4ebf-ec9c-9b87-c005ba3a7b15\",\n        \"menge\": 2,\n        \"einzelpreis\": 74.99\n      }\n    ],\n    \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n    \"status\": \"offen\",\n    \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n    \"zahlungsreferenz\": \"PAY-2025-123456\",\n    \"versandreferenz\": \"SHIP-XYZ-789456\"\n  }\n]"
+						},
+						{
+							"name": "Unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/bestellung",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"Duis dolore irure ut\",\n  \"message\": \"in nisi\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Bestellung anlegen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseId = pm.response.json()[\"id\"]",
+									"console.log(responseId)",
+									"pm.environment.set(\"bestellId\", responseId)",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept-encoding": true,
+							"accept": true,
+							"connection": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14712049-d0f1-cb09-1042-af40d0e5b878\",\n      \"id\": \"d7427dd3-644f-4f82-9fa3-136b4c213320\",\n      \"menge\": 5,\n      \"einzelpreis\": 77\n    },\n    {\n      \"produktId\": \"c906e3ea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"12341234-1234-1234-1234-123412341234\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"\",\n  \"versandreferenz\": \"\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/bestellung",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"bestellung"
+							]
+						},
+						"description": "Legt eine neue Bestellung an"
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14719049-d0f1-cb09-1042-af40d0e5b878\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    },\n    {\n      \"produktId\": \"c906eaea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"PAY-2025-123456\",\n  \"versandreferenz\": \"SHIP-XYZ-789456\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bestellung",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14719049-d0f1-cb09-1042-af40d0e5b878\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    },\n    {\n      \"produktId\": \"c906eaea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"PAY-2025-123456\",\n  \"versandreferenz\": \"SHIP-XYZ-789456\"\n}"
+						},
+						{
+							"name": "Invalid input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14719049-d0f1-cb09-1042-af40d0e5b878\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    },\n    {\n      \"produktId\": \"c906eaea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"PAY-2025-123456\",\n  \"versandreferenz\": \"SHIP-XYZ-789456\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bestellung",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Validation exception",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14719049-d0f1-cb09-1042-af40d0e5b878\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    },\n    {\n      \"produktId\": \"c906eaea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"PAY-2025-123456\",\n  \"versandreferenz\": \"SHIP-XYZ-789456\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bestellung",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung"
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14719049-d0f1-cb09-1042-af40d0e5b878\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    },\n    {\n      \"produktId\": \"c906eaea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"1a2b3c4d-5678-90ab-cdef-1234567890ab\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"PAY-2025-123456\",\n  \"versandreferenz\": \"SHIP-XYZ-789456\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/bestellung",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bestellung"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": \"Duis dolore irure ut\",\n  \"message\": \"in nisi\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "{{basePath}}:{{basePortBestellservice}}"
+		},
+		{
+			"key": "bestellId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "basePort",
+			"value": "8072",
+			"type": "string"
+		},
+		{
+			"key": "basePath",
+			"value": "{{basePath}}:{{port}}",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

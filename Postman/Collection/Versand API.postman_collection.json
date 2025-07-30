@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "5811e9ed-acf4-40a0-b681-593fe4ae86e2",
+		"name": "Versand API",
+		"description": "API zum Erstellen von Versandaufträgen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45274174",
+		"_collection_link": "https://chirs-7607475.postman.co/workspace/Chirs's-Workspace~a61850d2-2f66-4cca-8538-c016220951d4/collection/45274174-5811e9ed-acf4-40a0-b681-593fe4ae86e2?action=share&source=collection_link&creator=45274174"
+	},
+	"item": [
+		{
+			"name": "versand",
+			"item": [
+				{
+					"name": "Versandauftrag anlegen",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{bestellId}}\",\n  \"kundeId\": \"98765432-abcd-1234-ef00-112233445566\",\n  \"bestellPositionen\": [\n    {\n      \"produktId\": \"14712049-d0f1-cb09-1042-af40d0e5b878\",\n      \"id\": \"d7427dd3-644f-4f82-9fa3-136b4c213320\",\n      \"menge\": 5,\n      \"einzelpreis\": 77\n    },\n    {\n      \"produktId\": \"c906e3ea-c3d9-532b-a00b-079929e9fad1\",\n      \"menge\": 2,\n      \"einzelpreis\": 74.99\n    }\n  ],\n  \"id\": \"12341234-1234-1234-1234-123412341234\",\n  \"status\": \"offen\",\n  \"erstelltAm\": \"2025-06-20T12:34:56Z\",\n  \"zahlungsreferenz\": \"\",\n  \"versandreferenz\": \"\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/versand",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"versand"
+							]
+						},
+						"description": "Legt einen neuen Versandauftrag basierend auf bestellungId und kundenId an."
+					},
+					"response": [
+						{
+							"name": "Erfolgreich angelegter Versandauftrag",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"value\": \"<Circular reference to #/components/schemas/BestellungDto detected>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/versand",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"versand"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"value\": \"<Circular reference to #/components/schemas/BestellungDto detected>\"\n}"
+						},
+						{
+							"name": "Ungültige Anfrage",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"value\": \"<Circular reference to #/components/schemas/BestellungDto detected>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/versand",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"versand"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Interner Fehler",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"value\": \"<Circular reference to #/components/schemas/BestellungDto detected>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/versand",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"versand"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "{{basePath}}:{{basePortVersandservice}}"
+		}
+	]
+}
